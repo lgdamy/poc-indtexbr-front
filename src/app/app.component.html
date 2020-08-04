@@ -1,11 +1,13 @@
 <section>
-  <mat-toolbar>
+  <mat-toolbar color="primary">
       <button mat-icon-button class="example-icon" [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon">
           <mat-icon>menu</mat-icon>
       </button>
       <mat-menu #menu="matMenu">
           <button mat-menu-item [routerLink]="'/licitacoes'">Licitações</button>
-          <button mat-menu-item [routerLink]="'/naoexiste'">Nao Existe</button>
+          <button mat-menu-item [routerLink]="'/gestao-de-normas'">Gestão de Normas</button>
+          <button mat-menu-item [routerLink]="'/consultorias-assessorias'">Consultorias e Assessorias</button>
+          <button mat-menu-item [routerLink]="'/relatorios'">Relatorios</button>
       </mat-menu>
       <span>{{title}}</span>
   </mat-toolbar>
@@ -13,3 +15,4 @@
 <div class="corpo">
   <router-outlet></router-outlet>
 </div>
+

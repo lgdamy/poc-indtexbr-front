@@ -50,12 +50,14 @@ import {MatTreeModule} from '@angular/material/tree';
 import {OverlayModule} from '@angular/cdk/overlay';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EntryComponent } from './entry/entry.component';
+import { GerarLicitacaoComponent } from './licitacoes/gerar-licitacao.component';
 @NgModule({
   declarations: [
     AppComponent,
     LicitacoesComponent,
     PageNotFoundComponent,
-    EntryComponent
+    EntryComponent,
+    GerarLicitacaoComponent
   ],
   imports: [
     BrowserModule,
