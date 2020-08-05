@@ -51,13 +51,16 @@ import {OverlayModule} from '@angular/cdk/overlay';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { EntryComponent } from './entry/entry.component';
 import { GerarLicitacaoComponent } from './licitacoes/gerar-licitacao.component';
+import { LicitacoesService } from './licitacoes/licitacoes.service';
+import { AlertaComponent } from './alerta/alerta.component'
 @NgModule({
   declarations: [
     AppComponent,
     LicitacoesComponent,
     PageNotFoundComponent,
     EntryComponent,
-    GerarLicitacaoComponent
+    GerarLicitacaoComponent,
+    AlertaComponent
   ],
   imports: [
     BrowserModule,
@@ -108,7 +111,7 @@ import { GerarLicitacaoComponent } from './licitacoes/gerar-licitacao.component'
     PortalModule,
     ScrollingModule
   ],
-  providers: [],
+  providers: [LicitacoesService],
   bootstrap: [AppComponent]
 })
 
