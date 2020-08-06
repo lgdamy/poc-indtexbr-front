@@ -3,7 +3,7 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <mat-form-field *ngIf="datePickerRefresh">
+            <mat-form-field class="fill" *ngIf="datePickerRefresh">
                 <input matInput #datePicker placeholder="Selecione duas datas" [satDatepicker]="picker2"
                     (dateChange)="dataAlterada($event)">
                 <sat-datepicker #picker2 [rangeMode]="true">
