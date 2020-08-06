@@ -6,7 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./page-not-found.component.scss']
 })
 export class PageNotFoundComponent implements OnInit {
-
+  title = "Página não encontrada"
+  message = "Este recurso não está disponível ou não existe"
   constructor() { }
 
   ngOnInit(): void {

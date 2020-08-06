@@ -12,7 +12,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./licitacoes.component.scss']
 })
 export class LicitacoesComponent implements OnInit {
-
+  title = "Licitações"
   displayedColumns:string[] = ['id','criado','categoria','grupo','cor','prazo']
   registros: Array<LicitacaoDTO>;
   pageEvent: PageEvent;

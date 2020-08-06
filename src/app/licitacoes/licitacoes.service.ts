@@ -8,7 +8,7 @@ export interface LicitacaoDTO {
   category:string
   group:string
   color:string
-  quantity:number
+  quantity:string
   createdAt:Date
   dueTo:Date
 }

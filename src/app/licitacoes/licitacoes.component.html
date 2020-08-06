@@ -1,5 +1,9 @@
-<h1>Licitações</h1>
-<button mat-button [routerLink]="'/licitacoes/nova'">Nova Licitação</button>
+<div class="container">
+        <button mat-icon-button [routerLink]="'/licitacoes/nova'">
+            <mat-icon>add</mat-icon>
+        </button>
+    <span class="mat-h2">{{title}}</span>
+</div>
 <div class="container">
     <div class="row">
         <div class="col">

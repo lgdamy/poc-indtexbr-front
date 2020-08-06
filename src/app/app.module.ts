@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LicitacoesComponent} from './licitacoes/licitacoes.component'
 import { AppRoutingModule } from './app-routing.module';
 import { MatFormFieldModule } from '@angular/material/form-field'
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -67,6 +68,7 @@ import { MatPaginatorBR } from './providers/MatPaginatorProvider';
     GerarLicitacaoComponent
   ],
   imports: [
+    FormsModule, ReactiveFormsModule,
     MatFormFieldModule,
     HttpClientModule,
     SatDatepickerModule, SatNativeDateModule,
