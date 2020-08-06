@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LicitacoesComponent} from './licitacoes/licitacoes.component'
 import { AppRoutingModule } from './app-routing.module';
+import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar'; 
@@ -27,13 +28,14 @@ import {MatChipsModule} from '@angular/material/chips';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatDialogModule} from '@angular/material/dialog';
+import {MatDialogRef} from '@angular/material/dialog'
 import {MatDividerModule} from '@angular/material/divider';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatGridListModule} from '@angular/material/grid-list';
 import {MatInputModule} from '@angular/material/input';
 import {MatListModule} from '@angular/material/list';
 import {MatNativeDateModule, MatRippleModule} from '@angular/material/core';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatPaginatorModule, MatPaginatorIntl} from '@angular/material/paginator';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 import {MatRadioModule} from '@angular/material/radio';
@@ -52,17 +54,22 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { EntryComponent } from './entry/entry.component';
 import { GerarLicitacaoComponent } from './licitacoes/gerar-licitacao.component';
 import { LicitacoesService } from './licitacoes/licitacoes.service';
-import { AlertaComponent } from './alerta/alerta.component'
+import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
+import { HttpClientModule } from '@angular/common/http';
+import { MatPaginatorBR } from './providers/MatPaginatorProvider';
+
 @NgModule({
   declarations: [
     AppComponent,
     LicitacoesComponent,
     PageNotFoundComponent,
     EntryComponent,
-    GerarLicitacaoComponent,
-    AlertaComponent
+    GerarLicitacaoComponent
   ],
   imports: [
+    MatFormFieldModule,
+    HttpClientModule,
+    SatDatepickerModule, SatNativeDateModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
@@ -111,7 +118,10 @@ import { AlertaComponent } from './alerta/alerta.component'
     PortalModule,
     ScrollingModule
   ],
-  providers: [LicitacoesService],
+  providers: [
+    LicitacoesService,
+    HttpClientModule,
+    {provide: MatPaginatorIntl, useClass: MatPaginatorBR }],
   bootstrap: [AppComponent]
 })
 
