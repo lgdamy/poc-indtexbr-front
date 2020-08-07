@@ -23,8 +23,9 @@ export class LicitacoesComponent implements OnInit {
   quantidadeGerados: number = 10;
   private ini: Date;
   private fim: Date;
-  private tamanho: number;
-  private pagina: number;
+  private tamanho: number = this.pageSize;
+  private pagina: number = 0;
+  private numLicitacao: number;
   datePickerRefresh = true;
   numLicitacaoRefresh = true;
 
@@ -42,39 +43,38 @@ export class LicitacoesComponent implements OnInit {
   dataAlterada(event: MatDatepickerInputEvent<Date>) {
     this.ini = event.value['begin'];
     this.fim = event.value['end'];
+    this.numLicitacao = undefined;
+    this.pagina = 0;
+    this.paginator.pageIndex = 0;
     this._numLicitacaoRefresh();
     this.buscarRegistros();
   }
 
   numLicitacaoAlterado(event: Event) {
-    var selected = event.target['value'];
-    this._datePickerRefresh();
-    if (selected != undefined && selected !== '' ) {
-      this.buscaPorId(parseInt(selected))
-    }
-  }
-
-  buscaPorId(id:number) {
+    this.numLicitacao = Number(event.target['value']);
     this.ini = undefined;
     this.fim = undefined;
     this.pagina = 0;
     this.paginator.pageIndex = 0;
-    this._service.consultaPorId(id).subscribe(
-      data => {
-        this.registros = data['content'];
-        this.length = data['totalElements'];
-      },
-      (error) => {
-        this.abrirAlerta('Essa porra está fora!')
-        this.registros = null;
-        this.length = 0;
-      }
-    )
+    this._datePickerRefresh();
+    this.buscarRegistros();
   }
 
   buscarRegistros() {
-    if (this.ini != undefined || this.fim != undefined) {
+    if ( this.ini != undefined && this.fim != undefined ) {
       this._service.consultaPorDatas(this.ini, this.fim, this.tamanho, this.pagina).subscribe(
+        data => {
+          this.registros = data['content'];
+          this.length = data['totalElements'];
+        },
+        (error) => {
+          this.abrirAlerta('Essa porra está fora!')
+          this.registros = null;
+          this.length = 0;
+        }
+      )
+    } else if (this.numLicitacao != undefined && this.numLicitacao != 0 && !isNaN(this.numLicitacao)) {
+      this._service.consultaPorId(this.numLicitacao).subscribe(
         data => {
           this.registros = data['content'];
           this.length = data['totalElements'];

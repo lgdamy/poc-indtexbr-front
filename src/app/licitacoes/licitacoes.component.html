@@ -1,14 +1,14 @@
 <div class="container">
-        <button mat-icon-button [routerLink]="'/licitacoes/nova'">
-            <mat-icon>add</mat-icon>
-        </button>
+    <button mat-icon-button  [routerLink]="'/licitacoes/nova'">
+        <mat-icon>add</mat-icon>
+    </button>
     <span class="mat-h2">{{title}}</span>
 </div>
 <div class="container">
     <div class="row">
         <div class="col">
             <mat-form-field class="fill" *ngIf="datePickerRefresh">
-                <input matInput #datePicker placeholder="Selecione duas datas" [satDatepicker]="picker2"
+                <input matInput placeholder="Selecione duas datas" [satDatepicker]="picker2"
                     (dateChange)="dataAlterada($event)">
                 <sat-datepicker #picker2 [rangeMode]="true">
                 </sat-datepicker>
@@ -17,42 +17,42 @@
         </div>
         <div class="col">
             <mat-form-field class="fill" *ngIf="numLicitacaoRefresh">
-                <mat-label>Número</mat-label>
-                <input matInput #numLicitacao (change)="numLicitacaoAlterado($event)" placeholder="Ex. 12345">
+                <mat-label>Identificador</mat-label>
+                <input matInput type="number" #numLicitacao (change)="numLicitacaoAlterado($event)" placeholder="Ex. 12345">
             </mat-form-field>
         </div>
     </div>
-</div>
-<div class="container">
-    <table mat-table class="fill" [dataSource]="registros">
-        <ng-container matColumnDef="id">
-            <th mat-header-cell *matHeaderCellDef>Número</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.id}}</td>
-        </ng-container>
-        <ng-container matColumnDef="criado">
-            <th mat-header-cell *matHeaderCellDef>Criação</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.createdAt}}</td>
-        </ng-container>
-        <ng-container matColumnDef="categoria">
-            <th mat-header-cell *matHeaderCellDef>Categoria</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.category}}</td>
-        </ng-container>
-        <ng-container matColumnDef="grupo">
-            <th mat-header-cell *matHeaderCellDef>Grupo</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.group}}</td>
-        </ng-container>
-        <ng-container matColumnDef="cor">
-            <th mat-header-cell *matHeaderCellDef>Cor</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.color}}</td>
-        </ng-container>
-        <ng-container matColumnDef="prazo">
-            <th mat-header-cell *matHeaderCellDef>Prazo</th>
-            <td mat-cell *matCellDef="let reg"> {{reg.dueTo}}</td>
-        </ng-container>
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-    <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="length" [pageIndex]="pageIndex" [pageSize]="pageSize"
-        (page)="paginacaoAlterada($event)">
-    </mat-paginator>
+    <div class="row">
+        <table mat-table class="fill" [dataSource]="registros">
+            <ng-container matColumnDef="id">
+                <th mat-header-cell *matHeaderCellDef>Número</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.id}}</td>
+            </ng-container>
+            <ng-container matColumnDef="criado">
+                <th mat-header-cell *matHeaderCellDef>Criação</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.createdAt}}</td>
+            </ng-container>
+            <ng-container matColumnDef="categoria">
+                <th mat-header-cell *matHeaderCellDef>Categoria</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.category}}</td>
+            </ng-container>
+            <ng-container matColumnDef="grupo">
+                <th mat-header-cell *matHeaderCellDef>Grupo</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.group}}</td>
+            </ng-container>
+            <ng-container matColumnDef="cor">
+                <th mat-header-cell *matHeaderCellDef>Cor</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.color}}</td>
+            </ng-container>
+            <ng-container matColumnDef="prazo">
+                <th mat-header-cell *matHeaderCellDef>Prazo</th>
+                <td mat-cell *matCellDef="let reg"> {{reg.dueTo}}</td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <mat-paginator [pageSizeOptions]="pageSizeOptions" [length]="length"
+            [pageIndex]="pageIndex" [pageSize]="pageSize" (page)="paginacaoAlterada($event)">
+        </mat-paginator>
+    </div>
 </div>
