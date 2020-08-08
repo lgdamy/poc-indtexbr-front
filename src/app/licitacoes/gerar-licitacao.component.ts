@@ -33,12 +33,12 @@ export class GerarLicitacaoComponent implements OnInit {
       this.abrirAlerta('Informe os campos obrigatórios');
       return;
     }
-    var dto : LicitacaoDTO = <LicitacaoDTO>{
-      category: form.categoria.value,
-      group: form.grupo.value,
-      color: form.cor.value,
-      quantity: form.quantidade.value,
-      dueTo: form.dataLimite.value,
+    const dto : LicitacaoDTO = <LicitacaoDTO>{
+      category: form.categoria,
+      group: form.grupo,
+      color: form.cor,
+      quantity: form.quantidade,
+      dueTo: form.dataLimite,
     };
     return dto;
   }
@@ -49,13 +49,13 @@ export class GerarLicitacaoComponent implements OnInit {
       this._service.novaLicitacao(dto).subscribe(
         data => this.abrirAlerta('Licitação Gerada #' + data)
       ,(error) => {
-          this.abrirAlerta('Essa porra está fora!')
+          this.abrirAlerta(error.error.message)
         })
     }
   }
 
   abrirAlerta(mensagem:string) {
-    this._alert.open(mensagem, undefined, {
+    this._alert.open(mensagem || 'Falha na comunicação', undefined, {
       duration:2000,
       horizontalPosition:'center',
       verticalPosition:'bottom',

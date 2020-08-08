@@ -68,28 +68,26 @@ export class LicitacoesComponent implements OnInit {
           this.length = data['totalElements'];
         },
         (error) => {
-          this.abrirAlerta('Essa porra está fora!')
-          this.registros = null;
-          this.length = 0;
+          this.abrirAlerta(error.error.message)
+          this.limparRegistros();
         }
       )
     } else if (this.numLicitacao != undefined && this.numLicitacao != 0 && !isNaN(this.numLicitacao)) {
       this._service.consultaPorId(this.numLicitacao).subscribe(
         data => {
-          this.registros = data['content'];
+          this.registros = [<LicitacaoDTO>data];
           this.length = data['totalElements'];
         },
         (error) => {
-          this.abrirAlerta('Essa porra está fora!')
-          this.registros = null;
-          this.length = 0;
+          this.abrirAlerta(error.error.message);
+          this.limparRegistros();
         }
       )
     }
   }
 
   abrirAlerta(mensagem:string) {
-    this._alert.open(mensagem, undefined, {
+    this._alert.open(mensagem || 'Falha na comunicação', undefined, {
       duration:2000,
       horizontalPosition:'center',
       verticalPosition:'bottom',
@@ -107,6 +105,11 @@ export class LicitacoesComponent implements OnInit {
   private _numLicitacaoRefresh() {
     setTimeout(() => this.numLicitacaoRefresh = false);
     setTimeout(() => this.numLicitacaoRefresh = true);
+  }
+
+  private limparRegistros() {
+    this.registros = null;
+    this.length = 0;
   }
 
 

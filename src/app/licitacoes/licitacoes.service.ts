@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { HttpHeaders } from '@angular/common/http';
 import { environment } from 'src/environments/environment.prod'
+import { DatePipe } from '@angular/common';
+import { pipe } from 'rxjs';
 
 export interface LicitacaoDTO {
   id:number
@@ -9,11 +11,11 @@ export interface LicitacaoDTO {
   group:string
   color:string
   quantity:string
-  createdAt:Date
-  dueTo:Date
+  createdAt: Date
+  dueTo: Date
 }
 
-const baseUrl = environment.url_processo_industrial
+const baseUrl = environment.url_processo_industrial + '/listings'
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -26,6 +28,8 @@ const httpOptions = {
   providedIn: 'root'
 })
 export class LicitacoesService {
+
+  pipe : DatePipe = new DatePipe('en-US')
 
   constructor(private _http:HttpClient) { }
 
@@ -45,7 +49,13 @@ export class LicitacoesService {
 
   novaLicitacao(licitacao:LicitacaoDTO) {
     return this._http.post(baseUrl + '/v1',
-      licitacao,
+      {
+        'category':licitacao.category,
+        'group':licitacao.group,
+        'color':licitacao.quantity,
+        'quantity':licitacao.quantity,
+        'dueTo': this.pipe.transform(licitacao.dueTo,'MM/dd/yyyy')
+      },
       httpOptions);
   }
 }

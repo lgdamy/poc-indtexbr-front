@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url_processo_industrial:'https://poc-processo-industrial.herokuapp.com/api',
+  url_processo_industrial:'https://poc-indtexbr-proc-industrial.herokuapp.com/api',
   url_consultorias_assessorias:'https://poc-consultorias-assessorias.herokuapp.com/api',
   url_normas:'https://poc-normas.herokuapp.com/api'
 };
