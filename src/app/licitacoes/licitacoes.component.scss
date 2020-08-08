@@ -1,3 +1,14 @@
 .fill {
     width: 100%;
 }
+
+.loader {
+    width: 300px;
+    height: 200px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    margin-left: auto; //add this
+    margin-right: auto; //add this
+    overflow: hidden;
+    background:black;  
+ }

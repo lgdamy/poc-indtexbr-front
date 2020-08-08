@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { LicitacoesService, LicitacaoDTO } from './licitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { LoadingComponent } from '../loading/loading.component';
+import { timeout } from 'q';
 
 @Component({
   selector: 'app-gerar-licitacao',
@@ -12,6 +14,7 @@ export class GerarLicitacaoComponent implements OnInit {
   title = "Gerar Licitação";
   formGroup:FormGroup;
   constructor(
+    public loader : LoadingComponent,
     private _formBuilder:FormBuilder,
     private _service: LicitacoesService,
     private _alert:MatSnackBar
@@ -46,11 +49,12 @@ export class GerarLicitacaoComponent implements OnInit {
   gerarLicitacao() {
     var dto = this.parseDTO()
     if (dto != undefined) {
+      this.loader.toggle=true;
       this._service.novaLicitacao(dto).subscribe(
-        data => this.abrirAlerta('Licitação Gerada #' + data)
+        (data:number) => this.abrirAlerta('Licitação Gerada #' + data)
       ,(error) => {
           this.abrirAlerta(error.error.message)
-        })
+        }).add(() => this.loader.toggle=false)
     }
   }
 

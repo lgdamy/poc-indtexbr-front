@@ -1,18 +1,17 @@
-<section>
-  <mat-toolbar class="mat-elevation-z6" color="primary">
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item [routerLink]="'/licitacoes'">Licitações</button>
-      <button mat-menu-item [routerLink]="'/gestao-de-normas'">Gestão de Normas</button>
-      <button mat-menu-item [routerLink]="'/consultorias-assessorias'">Consultorias e Assessorias</button>
-      <button mat-menu-item [routerLink]="'/relatorios'">Relatorios</button>
-    </mat-menu>
-    <button mat-icon-button [routerLink]="'/'">
-      <mat-icon>home</mat-icon>
-    </button>
-    <span>{{title}}</span>
-  </mat-toolbar>
-</section>
+<mat-toolbar class="mat-elevation-z6" color="primary">
+  <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item [routerLink]="'/licitacoes'">Licitações</button>
+    <button mat-menu-item [routerLink]="'/gestao-de-normas'">Gestão de Normas</button>
+    <button mat-menu-item [routerLink]="'/consultorias-assessorias'">Consultorias e Assessorias</button>
+    <button mat-menu-item [routerLink]="'/relatorios'">Relatorios</button>
+  </mat-menu>
+  <button mat-icon-button [routerLink]="'/'">
+    <mat-icon>home</mat-icon>
+  </button>
+  <span>{{title}}</span>
+</mat-toolbar>
+<api-loader *ngIf="loader.toggle"></api-loader>
 <router-outlet></router-outlet>

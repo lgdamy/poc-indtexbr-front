@@ -1,19 +1,20 @@
 import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { LicitacoesService, LicitacaoDTO } from './licitacoes.service';
+import { LicitacoesService, LicitacaoDTO, PageResponseDTO } from './licitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { LoadingComponent } from '../loading/loading.component';
 
 
 
 @Component({
   selector: 'app-licitacoes',
   templateUrl: './licitacoes.component.html',
-  styleUrls: ['./licitacoes.component.scss']
+  styleUrls: ['./licitacoes.component.scss'],
 })
 export class LicitacoesComponent implements OnInit {
-  title = "Licitações"
-  displayedColumns:string[] = ['id','criado','categoria','grupo','cor','prazo']
+  title = "Licitações";
+  displayedColumns:string[] = ['id','criado','categoria','grupo','cor','prazo'];
   registros: Array<LicitacaoDTO>;
   pageEvent: PageEvent;
   pageIndex: number;
@@ -32,7 +33,10 @@ export class LicitacoesComponent implements OnInit {
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
 
-  constructor(private _service: LicitacoesService, private _alert:MatSnackBar) { }
+  constructor(
+    private _service: LicitacoesService,
+    private _alert:MatSnackBar,
+    public loader : LoadingComponent) { }
 
   paginacaoAlterada(event: PageEvent) {
     this.tamanho = event.pageSize;
@@ -62,27 +66,29 @@ export class LicitacoesComponent implements OnInit {
 
   buscarRegistros() {
     if ( this.ini != undefined && this.fim != undefined ) {
+      this.loader.toggle = true
       this._service.consultaPorDatas(this.ini, this.fim, this.tamanho, this.pagina).subscribe(
-        data => {
-          this.registros = data['content'];
-          this.length = data['totalElements'];
+        (data:PageResponseDTO<LicitacaoDTO>) => {
+          this.registros = data.content;
+          this.length = data.totalElements;
         },
         (error) => {
           this.abrirAlerta(error.error.message)
           this.limparRegistros();
         }
-      )
+      ).add(() => this.loader.toggle = false);
     } else if (this.numLicitacao != undefined && this.numLicitacao != 0 && !isNaN(this.numLicitacao)) {
+      this.loader.toggle = true
       this._service.consultaPorId(this.numLicitacao).subscribe(
-        data => {
-          this.registros = [<LicitacaoDTO>data];
-          this.length = data['totalElements'];
+        (data: LicitacaoDTO) => {
+          this.registros = [data];
+          this.length = 1;
         },
         (error) => {
           this.abrirAlerta(error.error.message);
           this.limparRegistros();
         }
-      )
+      ).add(() => this.loader.toggle = false);
     }
   }
 
