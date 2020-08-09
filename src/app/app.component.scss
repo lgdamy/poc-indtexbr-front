@@ -1,8 +1,21 @@
 api-loader{
   position: fixed;
-  left: 40%;
-  top: 40%;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   z-index: 9999;
+}
+
+#header {
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+#content {
+border-top-width: 64px;
+border-top-style: solid;
+border-top-color:
+#fff0;
 }
