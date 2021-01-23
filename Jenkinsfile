@@ -6,11 +6,14 @@ pipeline {
 
   }
   stages {
-    stage('') {
+    stage('error') {
       steps {
         echo 'finish'
       }
     }
 
+  }
+  environment {
+    t = 'tcc_web'
   }
 }
