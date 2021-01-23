@@ -1,19 +1,23 @@
 pipeline {
-  agent {
-    dockerfile {
-      filename 'Dockerfile'
-    }
-
-  }
+  agent any
   stages {
-    stage('error') {
+    stage('build') {
       steps {
-        echo 'finish'
+        sh 'docker build -t tcc_front .'
       }
     }
 
-  }
-  environment {
-    t = 'tcc_web'
+    stage('tag') {
+      steps {
+        sh 'docker tag tcc_front:latest srochg/tcc_front'
+      }
+    }
+
+    stage('push') {
+      steps {
+        sh 'docker push srochg/tcc_front:latest'
+      }
+    }
+
   }
 }
