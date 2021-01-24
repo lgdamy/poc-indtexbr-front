@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./entry.component.scss']
 })
 export class EntryComponent implements OnInit {
-  title="Bem-vindos Piroks"
+  title="Bem-vindos Piroks 1"
   message="Esta corporação não seria nada sem vocês"
   constructor() { }
 
