@@ -19,5 +19,11 @@ pipeline {
       }
     }
 
+    stage('apply') {
+      steps {
+        sh 'kubectl rollout restart deployment tcc-web-deployment '
+      }
+    }
+
   }
 }
