@@ -6,8 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./entry.component.scss']
 })
 export class EntryComponent implements OnInit {
-  title="Bem-vindos Ana"
-  message="Esta corporação não seria nada sem vocês"
+  title="Bem-vindos"
+  message="Esta corporação não seria nada sem vocês, build automático"
   constructor() { }
 
   ngOnInit(): void {
