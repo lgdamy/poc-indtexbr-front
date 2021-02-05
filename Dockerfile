@@ -5,6 +5,6 @@ COPY package.json package-lock.json ./
 RUN npm install
 RUN npm install -g @angular/cli@8.3.19
 COPY . .
-RUN ng build --configuration=production
+RUN ng build --configuration=jenkins
 
 CMD npm run start
