@@ -3,8 +3,10 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "node server.js",
-    "build": "ng build",
+    "start": "node server.js",    
+    "start-jenkins": "NODE_ENV=jenkins node server.js",    
+    "build": "ng build",    
+    "build-jenkins": "ng build --configuration=jenkins",  
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
