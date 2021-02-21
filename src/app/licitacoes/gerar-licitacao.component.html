@@ -1,45 +1,46 @@
-
 <div class="container">
-        <button mat-icon-button [routerLink]="'/licitacoes'">
-            <mat-icon>undo</mat-icon>
-        </button>
+    <button mat-icon-button [routerLink]="'/licitacoes'">
+        <mat-icon>undo</mat-icon>
+    </button>
     <span class="mat-h2">{{title}}</span>
 </div>
-<form [formGroup]="formGroup" class="formulario" (ngSubmit)=gerarLicitacao()>
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <mat-form-field class="fill">
-                    <mat-label>Categoria</mat-label>
-                    <input matInput placeholder="Ex. Tecido" formControlName="categoria">
-                </mat-form-field>
+<div class="container">
+    <form [formGroup]="formGroup" class="formulario" (ngSubmit)=gerarLicitacao()>
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <mat-form-field class="fill">
+                        <mat-label>Categoria</mat-label>
+                        <input matInput placeholder="Ex. Tecido" formControlName="categoria">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="fill">
+                        <mat-label>Grupo</mat-label>
+                        <input matInput placeholder="Ex. Feltro" formControlName="grupo">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="fill">
+                        <mat-label>Cor</mat-label>
+                        <input matInput placeholder="Ex. Cinza" formControlName="cor">
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field class="fill">
+                        <mat-label>Quantidade</mat-label>
+                        <input matInput placeholder="Ex. 200kg" formControlName="quantidade">
+                    </mat-form-field>
+                </div>
             </div>
-            <div class="col">
-                <mat-form-field class="fill">
-                    <mat-label>Grupo</mat-label>
-                    <input matInput placeholder="Ex. Feltro" formControlName="grupo">
-                </mat-form-field>
-            </div>
-            <div class="col">
-                <mat-form-field class="fill">
-                    <mat-label>Cor</mat-label>
-                    <input matInput placeholder="Ex. Cinza" formControlName="cor">
-                </mat-form-field>
-            </div>
-            <div class="col">
-                <mat-form-field class="fill">
-                    <mat-label>Quantidade</mat-label>
-                    <input matInput placeholder="Ex. 200kg" formControlName="quantidade">
-                </mat-form-field>
-            </div>
-        </div>
-        <mat-form-field appearance="fill">
-            <mat-label>Data limite</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="dataLimite">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Data limite</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="dataLimite">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
 
-        <button type="submit" mat-button>Gerar</button>
-    </div>
-</form>
+            <button type="submit" mat-button>Gerar</button>
+        </div>
+    </form>
+</div>

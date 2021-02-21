@@ -59,6 +59,8 @@ import { SatDatepickerModule, SatNativeDateModule } from 'saturn-datepicker';
 import { HttpClientModule } from '@angular/common/http';
 import { MatPaginatorBR } from './providers/MatPaginatorProvider';
 import { LoadingComponent } from './loading/loading.component';
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @NgModule({
   declarations: [
@@ -67,7 +69,8 @@ import { LoadingComponent } from './loading/loading.component';
     PageNotFoundComponent,
     EntryComponent,
     GerarLicitacaoComponent,
-    LoadingComponent
+    LoadingComponent,
+    AuthenticationComponent
   ],
   imports: [
     FormsModule, ReactiveFormsModule,
@@ -125,6 +128,7 @@ import { LoadingComponent } from './loading/loading.component';
   providers: [
     LoadingComponent,
     LicitacoesService,
+    AuthenticationService,
     HttpClientModule,
     {provide: MatPaginatorIntl, useClass: MatPaginatorBR }],
   bootstrap: [AppComponent]

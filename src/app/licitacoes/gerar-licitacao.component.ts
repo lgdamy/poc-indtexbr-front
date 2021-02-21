@@ -3,7 +3,7 @@ import { LicitacoesService, LicitacaoDTO } from './licitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { LoadingComponent } from '../loading/loading.component';
-import { timeout } from 'q';
+import { AlertService } from '../alert.service';
 
 @Component({
   selector: 'app-gerar-licitacao',
@@ -17,7 +17,7 @@ export class GerarLicitacaoComponent implements OnInit {
     public loader : LoadingComponent,
     private _formBuilder:FormBuilder,
     private _service: LicitacoesService,
-    private _alert:MatSnackBar
+    private _alert:AlertService
     ) { }
 
   ngOnInit(): void {
@@ -33,7 +33,7 @@ export class GerarLicitacaoComponent implements OnInit {
   parseDTO() : LicitacaoDTO {
     const form = this.formGroup.value;
     if (this.formGroup.invalid) {
-      this.abrirAlerta('Informe os campos obrigatórios');
+      this._alert.error('Informe os campos obrigatórios');
       return;
     }
     const dto : LicitacaoDTO = <LicitacaoDTO>{
@@ -51,19 +51,11 @@ export class GerarLicitacaoComponent implements OnInit {
     if (dto != undefined) {
       this.loader.toggle=true;
       this._service.novaLicitacao(dto).subscribe(
-        (data:number) => this.abrirAlerta('Licitação Gerada #' + data)
+        (data:number) => this._alert.message('Licitação Gerada #' + data)
       ,(error) => {
-          this.abrirAlerta(error.error.message)
+          this._alert.error(error)
         }).add(() => this.loader.toggle=false)
     }
-  }
-
-  abrirAlerta(mensagem:string) {
-    this._alert.open(mensagem || 'Falha na comunicação', undefined, {
-      duration:2000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom',
-    } )
   }
 
 }

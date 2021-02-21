@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoadingComponent } from './loading/loading.component';
+import { AuthenticationService } from './authentication/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +9,9 @@ import { LoadingComponent } from './loading/loading.component';
 })
 export class AppComponent {
   title = 'IndTexBR';
-  apiLoader;
-  constructor(public loader: LoadingComponent) {
+  authenticated = false;
+  constructor(
+    public loader: LoadingComponent,
+    public auth: AuthenticationService) {
   }
 }

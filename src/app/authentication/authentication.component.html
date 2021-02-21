@@ -1,0 +1,21 @@
+<div class="container">
+    <span class="mat-h2">{{title}}</span>
+</div>
+<div class="container">
+    <form [formGroup]="formGroup" class="formulario" (ngSubmit)=autenticar()>
+        <div class="d-flex flex-column justify-content-center align-items-center align-self-center">
+
+            <mat-form-field>
+                <mat-label>Usuário</mat-label>
+                <input matInput placeholder="usuario" formControlName="user">
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Senha</mat-label>
+                <input type="password" matInput placeholder="senha" formControlName="password">
+            </mat-form-field>
+            <button type="submit" color="primary" *ngIf="!service.toggle" mat-raised-button>Entrar</button>
+            <button color="warn" *ngIf="service.toggle" (click)=service.sair() mat-raised-button>Sair</button>
+        </div>
+    </form>
+</div>

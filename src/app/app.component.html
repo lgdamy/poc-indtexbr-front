@@ -12,8 +12,19 @@
     <mat-icon>home</mat-icon>
   </button>
   <span>{{title}}</span>
+  <span class="spacer"></span>
+  <button mat-icon-button [routerLink]="'/autenticacao'">
+    <mat-icon *ngIf="auth.toggle">lock_open</mat-icon>
+    <mat-icon *ngIf="!auth.toggle">lock</mat-icon>
+  </button>
+  <div *ngIf="!auth.toggle">
+    <div class="authCircle" style="animation-delay: 0s"></div>
+    <div class="authCircle" style="animation-delay: 1s"></div>
+
+  </div>
+
 </mat-toolbar>
 <api-loader *ngIf="loader.toggle"></api-loader>
 <div id="content">
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
 </div>

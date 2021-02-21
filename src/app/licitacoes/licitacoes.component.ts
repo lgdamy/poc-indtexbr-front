@@ -4,6 +4,8 @@ import { PageEvent, MatPaginator } from '@angular/material/paginator';
 import { LicitacoesService, LicitacaoDTO, PageResponseDTO } from './licitacoes.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { LoadingComponent } from '../loading/loading.component';
+import { AlertService } from '../alert.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 
@@ -35,7 +37,7 @@ export class LicitacoesComponent implements OnInit {
 
   constructor(
     private _service: LicitacoesService,
-    private _alert:MatSnackBar,
+    private _alert:AlertService,
     public loader : LoadingComponent) { }
 
   paginacaoAlterada(event: PageEvent) {
@@ -73,7 +75,7 @@ export class LicitacoesComponent implements OnInit {
           this.length = data.totalElements;
         },
         (error) => {
-          this.abrirAlerta(error.error.message)
+          this._alert.error(error.error.message);
           this.limparRegistros();
         }
       ).add(() => this.loader.toggle = false);
@@ -85,19 +87,11 @@ export class LicitacoesComponent implements OnInit {
           this.length = 1;
         },
         (error) => {
-          this.abrirAlerta(error.error.message);
+          this._alert.error(error)
           this.limparRegistros();
         }
       ).add(() => this.loader.toggle = false);
     }
-  }
-
-  abrirAlerta(mensagem:string) {
-    this._alert.open(mensagem || 'Falha na comunicação', undefined, {
-      duration:2000,
-      horizontalPosition:'center',
-      verticalPosition:'bottom',
-    } )
   }
 
   ngOnInit(): void {

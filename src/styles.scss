@@ -3,4 +3,10 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
 .corpo { padding: 5px;}
+.alert-error {
+    background: #F44336;
+}
+.alert-normal {
+    background: #2196F3;
+}
 
