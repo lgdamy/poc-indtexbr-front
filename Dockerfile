@@ -1,9 +1,9 @@
 ### STAGE 1: Build ###
-FROM node:12.8-alpine AS build
+FROM node:12.16-alpine AS build
 WORKDIR /usr/src/app
 COPY package.json package-lock.json ./
 RUN npm install
-RUN npm install -g @angular/cli@8.3.19
+RUN npm install -g @angular/cli@9.1.12
 COPY . .
 
 ARG PROFILE
