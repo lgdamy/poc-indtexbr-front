@@ -61,6 +61,7 @@ import { MatPaginatorBR } from './providers/MatPaginatorProvider';
 import { LoadingComponent } from './loading/loading.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AuthenticationService } from './authentication/authentication.service';
+import { OrcamentosComponent } from './licitacoes/orcamentos/orcamentos.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +71,8 @@ import { AuthenticationService } from './authentication/authentication.service';
     EntryComponent,
     GerarLicitacaoComponent,
     LoadingComponent,
-    AuthenticationComponent
+    AuthenticationComponent,
+    OrcamentosComponent
   ],
   imports: [
     FormsModule, ReactiveFormsModule,

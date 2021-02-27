@@ -1,3 +1,84 @@
 .fill {
     width: 100%;
 }
+
+.formulario {
+  width: 200px;
+}
+
+.authCircle {
+  border-radius: 50%;
+  border-top: hidden;
+  border-bottom: hidden;
+  position: fixed;
+  pointer-events: none;
+  right: 11px;
+  animation: rotate 1s infinite linear;
+  z-index: 2;
+  }
+
+  .loginBurst {
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    right: 11px;
+    background-color: lime;
+    opacity: 0;
+    animation: burst 2s ease-out;
+  }
+  .logoffBurst {
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    right: 11px;
+    background-color: orangered;
+    opacity: 0;
+    animation: burst 3s ease-out;
+  }
+
+  @media screen and (max-width: 600px) {
+    .authCircle, .loginBurst, .logoffBurst {
+      top: 7px;
+      width: 45px;
+      height: 45px;
+      right: 13px;
+    }
+  }
+  @media screen and (min-width: 600px) {
+    .authCircle, .loginBurst, .logoffBurst {
+        top: 9px;
+        width: 50px;
+        height: 50px;
+        right: 11px;
+      }
+    }
+
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+      border-left: 5px solid maroon;
+      border-right: 5px solid orangered;
+    }
+    50% {
+      transform: rotate(180deg);
+      border-right:5px solid maroon;
+      border-left: 5px solid orangered;
+    }
+    100% {
+      transform: rotate(360deg);
+      border-left: 5px solid maroon;
+      border-right: 5px solid orangered;
+    }
+  }
+  
+  @keyframes burst {
+    from {
+      transform: scale(1, 1);
+      opacity: 0.75;
+    }
+    to {
+      transform: scale(100, 100);
+      background-color: white;
+      opacity: 0;
+    }
+  }

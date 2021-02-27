@@ -26,27 +26,34 @@
         <table mat-table class="fill" [dataSource]="registros">
             <ng-container matColumnDef="id">
                 <th mat-header-cell *matHeaderCellDef>Número</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.id}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.id}}</td>
             </ng-container>
             <ng-container matColumnDef="criado">
                 <th mat-header-cell *matHeaderCellDef>Criação</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.createdAt}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.createdAt}}</td>
             </ng-container>
             <ng-container matColumnDef="categoria">
                 <th mat-header-cell *matHeaderCellDef>Categoria</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.category}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.category}}</td>
             </ng-container>
             <ng-container matColumnDef="grupo">
                 <th mat-header-cell *matHeaderCellDef>Grupo</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.group}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.group}}</td>
             </ng-container>
             <ng-container matColumnDef="cor">
                 <th mat-header-cell *matHeaderCellDef>Cor</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.color}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.color}}</td>
             </ng-container>
             <ng-container matColumnDef="prazo">
                 <th mat-header-cell *matHeaderCellDef>Prazo</th>
-                <td mat-cell *matCellDef="let reg"> {{reg.dueTo}}</td>
+                <td mat-cell *matCellDef="let reg"> {{reg.reg.dueTo}}</td>
+            </ng-container>
+            <ng-container matColumnDef="orcamentos">
+                <th mat-header-cell *matHeaderCellDef>Orçamentos</th>
+                <td mat-cell *matCellDef="let reg">
+                    <button *ngIf="!reg.change" (click)="buscarOrcamentos(reg.reg.id)" mat-mini-fab color="primary">{{reg.reg.proposals}}</button>
+                    <button *ngIf="reg.change"(click)="buscarOrcamentos(reg.reg.id)" mat-mini-fab color="change">{{reg.reg.proposals}}</button>
+                </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

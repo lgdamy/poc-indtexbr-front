@@ -1,21 +1,36 @@
-<div class="container">
-    <span class="mat-h2">{{title}}</span>
-</div>
-<div class="container">
-    <form [formGroup]="formGroup" class="formulario" (ngSubmit)=autenticar()>
+<div *ngIf="!service.toggle">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>lock</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
         <div class="d-flex flex-column justify-content-center align-items-center align-self-center">
-
-            <mat-form-field>
-                <mat-label>Usuário</mat-label>
-                <input matInput placeholder="usuario" formControlName="user">
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Senha</mat-label>
-                <input type="password" matInput placeholder="senha" formControlName="password">
-            </mat-form-field>
-            <button type="submit" color="primary" *ngIf="!service.toggle" mat-raised-button>Entrar</button>
-            <button color="warn" *ngIf="service.toggle" (click)=service.sair() mat-raised-button>Sair</button>
+            <form [formGroup]="formGroup" class="formulario" (ngSubmit)=autenticar() (click)="$event.stopPropagation()"
+                (keydown.tab)="$event.stopPropagation()">
+                <mat-form-field class="fill">
+                    <mat-label>Usuário</mat-label>
+                    <input matInput placeholder="usuario" formControlName="user">
+                </mat-form-field>
+                <mat-form-field class="fill">
+                    <mat-label>Senha</mat-label>
+                    <input type="password" matInput placeholder="senha" formControlName="password">
+                </mat-form-field>
+                <mat-divider></mat-divider>
+                <button type="submit" mat-menu-item style="background-color: palegreen;">Entrar</button>
+            </form>
         </div>
-    </form>
+    </mat-menu>
+    <div class="logoffBurst"></div>
+    <div class="authCircle"></div>
+</div>
+<div *ngIf="service.toggle">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>lock_open</mat-icon>
+    </button>
+    <div class="d-flex flex-column justify-content-center align-items-center align-self-center">
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="$event.stopPropagation()">{{usuario}}</button>
+            <button (click)=service.sair() mat-menu-item style="background-color: pink;">Sair</button>
+        </mat-menu>
+        <div class="loginBurst"></div>
+    </div>
 </div>

@@ -1,0 +1,24 @@
+<table mat-table class="fill" [dataSource]="orcamentos">
+    <ng-container matColumnDef="empresa">
+        <th mat-header-cell *matHeaderCellDef>Empresa</th>
+        <td mat-cell *matCellDef="let o"> {{o.company}}</td>
+    </ng-container>
+    <ng-container matColumnDef="cnpj">
+        <th mat-header-cell *matHeaderCellDef>CNPJ</th>
+        <td mat-cell *matCellDef="let o"> {{o.companyDocument}}</td>
+    </ng-container>
+    <ng-container matColumnDef="preco">
+        <th mat-header-cell *matHeaderCellDef>Valor</th>
+        <td mat-cell *matCellDef="let o"> $ {{o.price}}</td>
+    </ng-container>
+    <ng-container matColumnDef="producao">
+        <th mat-header-cell *matHeaderCellDef>Produção</th>
+        <td mat-cell *matCellDef="let o"> {{o.productionTime}}d </td>
+    </ng-container>
+    <ng-container matColumnDef="entrega">
+        <th mat-header-cell *matHeaderCellDef>Entrega</th>
+        <td mat-cell *matCellDef="let o"> {{o.shippingTime}}d</td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

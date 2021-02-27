@@ -10,18 +10,19 @@ export class AlertService {
   constructor(private _alert: MatSnackBar) { }
 
   public error(error: any) {
-    console.log(error)
     if (error != undefined && (typeof error === 'string' || error instanceof String)) {
       this._showAlert(true, error.toString())
     } else {
-      if (error === undefined || error.error === undefined || error.error.message === undefined) {
-        if (error.status === 401) {
+      const errormessage = (((error || {}).error || {} ).message);
+      if (errormessage) {
+        this._showAlert(true, errormessage);
+      } else {
+        const errorstatus = ((error || {}).status);
+        if (errorstatus === 401) {
           this._showAlert(true, 'Não Autorizado')
         } else {
           this._showAlert(true, 'Falha na comunicação')
         }
-      } else {
-        this._showAlert(true, error.error.message)
       }
     }
   }

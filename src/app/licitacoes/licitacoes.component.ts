@@ -1,23 +1,28 @@
-import { Component, OnInit, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { PageEvent, MatPaginator } from '@angular/material/paginator';
-import { LicitacoesService, LicitacaoDTO, PageResponseDTO } from './licitacoes.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { LicitacoesService, LicitacaoDTO, OrcamentoDTO, PageResponseDTO } from './licitacoes.service';
 import { LoadingComponent } from '../loading/loading.component';
 import { AlertService } from '../alert.service';
-import { HttpErrorResponse } from '@angular/common/http';
+import { MatDialog } from '@angular/material/dialog';
+import { OrcamentosComponent } from './orcamentos/orcamentos.component';
+import { NotificationService } from '../notification/notification.service';
+import { Subscription } from 'rxjs';
 
-
+export interface Registro {
+  reg : LicitacaoDTO,
+  change: boolean
+}
 
 @Component({
   selector: 'app-licitacoes',
   templateUrl: './licitacoes.component.html',
   styleUrls: ['./licitacoes.component.scss'],
 })
-export class LicitacoesComponent implements OnInit {
+export class LicitacoesComponent implements OnInit, OnDestroy {
   title = "Licitações";
-  displayedColumns:string[] = ['id','criado','categoria','grupo','cor','prazo'];
-  registros: Array<LicitacaoDTO>;
+  displayedColumns: string[] = ['id', 'criado', 'categoria', 'grupo', 'cor', 'prazo', 'orcamentos'];
+  registros: Array<Registro>;
   pageEvent: PageEvent;
   pageIndex: number;
   length: number;
@@ -31,14 +36,19 @@ export class LicitacoesComponent implements OnInit {
   private numLicitacao: number;
   datePickerRefresh = true;
   numLicitacaoRefresh = true;
+  private websockets : Subscription;
+  
 
   @ViewChild(MatPaginator, { static: false }) paginator: MatPaginator;
 
 
   constructor(
     private _service: LicitacoesService,
-    private _alert:AlertService,
-    public loader : LoadingComponent) { }
+    private _notification: NotificationService,
+    private _alert: AlertService,
+    public loader: LoadingComponent,
+    public dialog: MatDialog) {
+  }
 
   paginacaoAlterada(event: PageEvent) {
     this.tamanho = event.pageSize;
@@ -67,15 +77,17 @@ export class LicitacoesComponent implements OnInit {
   }
 
   buscarRegistros() {
-    if ( this.ini != undefined && this.fim != undefined ) {
+    if (this.ini != undefined && this.fim != undefined) {
       this.loader.toggle = true
       this._service.consultaPorDatas(this.ini, this.fim, this.tamanho, this.pagina).subscribe(
-        (data:PageResponseDTO<LicitacaoDTO>) => {
-          this.registros = data.content;
+        (data: PageResponseDTO<LicitacaoDTO>) => {
+          this.registros = data.content.map(lic => {
+            return {reg : lic, change: false}
+          });
           this.length = data.totalElements;
         },
         (error) => {
-          this._alert.error(error.error.message);
+          this._alert.error(error);
           this.limparRegistros();
         }
       ).add(() => this.loader.toggle = false);
@@ -83,7 +95,7 @@ export class LicitacoesComponent implements OnInit {
       this.loader.toggle = true
       this._service.consultaPorId(this.numLicitacao).subscribe(
         (data: LicitacaoDTO) => {
-          this.registros = [data];
+          this.registros = [{reg : data, change: false}];
           this.length = 1;
         },
         (error) => {
@@ -94,8 +106,44 @@ export class LicitacoesComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  buscarOrcamentos(licitacao: number) {
+    if (licitacao !== undefined) {
+      this.loader.toggle = true;
+      this._service.consultarOrcamentos(licitacao).subscribe(
+        (data: OrcamentoDTO[]) => {
+          this.dialog.open(OrcamentosComponent, {
+            data: data,
+            panelClass: 'no-padding-container'
+          })
+        },
+        (error) => {
+          this._alert.error(error);
+        }
+      ).add(() => this.loader.toggle = false);
+    }
   }
+
+
+  ngOnInit(): void {
+    this.websockets = this._notification.orcamento$.subscribe(o => {
+      if (this.registros) {
+        this.registros
+        .filter(r => r.reg && r.reg.id == o.listing)
+        .forEach(r => {
+          const qtd = r.reg.proposals + 1
+          r.reg.proposals = qtd;
+          r.change = true;
+          setTimeout(() => r.change = false, 2000);
+        });
+      }
+    })
+  }
+
+  ngOnDestroy() {
+    this.websockets.unsubscribe();
+  }
+
+
 
   private _datePickerRefresh() {
     setTimeout(() => this.datePickerRefresh = false);
@@ -111,6 +159,8 @@ export class LicitacoesComponent implements OnInit {
     this.registros = null;
     this.length = 0;
   }
+
+
 
 
 }

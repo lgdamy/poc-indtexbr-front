@@ -7,6 +7,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
     background: #F44336;
 }
 .alert-normal {
-    background: #2196F3;
+    background: #673ab7;
 }
-
+.no-padding-container .mat-dialog-container {
+    padding: 0px;
+    border-radius: 0px;
+}

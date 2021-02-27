@@ -23,39 +23,3 @@ border-top-color:
 .spacer {
   flex: 1 1 auto;
 }
-
-.authCircle {
-  border-radius: 100%;
-  width: 30px;
-  height: 30px;
-  position: fixed;
-  pointer-events: none;
-  right: 21px;
-  top: 17px;
-  animation: ping 2s infinite ease-out;
-  z-index: 2;
-}
-
-@media screen and (max-width: 600px) {
-  .authCircle {
-    top: 17px;
-  }
-}
-@media screen and (min-width: 600px) {
-  .authCircle {
-      top: 21px;
-    }
-  }
-
-@keyframes ping {
-  from {
-    transform: scale(0.1, 0.1);
-    background-color: orangered;
-    opacity: 1;
-  }
-  to {
-    transform: scale(1.5, 1.5);
-    background-color: indigo;
-    opacity: 0;
-  }
-}

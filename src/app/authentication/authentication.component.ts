@@ -13,6 +13,7 @@ export class AuthenticationComponent implements OnInit {
 
   title='Autenticação'
   formGroup:FormGroup;
+  usuario : string;
 
   constructor(
     public service : AuthenticationService,
@@ -34,6 +35,7 @@ export class AuthenticationComponent implements OnInit {
     }
     let user = this.formGroup.value.user;
     let password = this.formGroup.value.password;
+    this.usuario = user;
     this.service.autenticar(user,password);
   }
 }

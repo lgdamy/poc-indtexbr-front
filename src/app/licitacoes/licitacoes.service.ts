@@ -15,6 +15,7 @@ export interface LicitacaoDTO {
   quantity:string
   createdAt: Date
   dueTo: Date
+  proposals: number
 }
 
 export interface PageResponseDTO<T> {
@@ -24,7 +25,20 @@ export interface PageResponseDTO<T> {
   content:Array<T>
 }
 
-const baseUrl = environment.url_processo_industrial + '/listings'
+export interface OrcamentoDTO {
+  id: number
+  listing: number
+  company: string
+  companyDocument: string
+  price: number
+  productionTime: number
+  shippingTime: number
+  proposalLink: string
+}
+
+const listingsUrl = environment.url_processo_industrial + '/listings'
+const proposalsUrl = environment.url_processo_industrial + '/proposals'
+
 
 @Injectable({
   providedIn: 'root'
@@ -40,18 +54,18 @@ export class LicitacoesService {
     const fimStr = ("0" + fim.getDate()).slice(-2) + ("0" + (fim.getMonth() + 1)).slice(-2) + fim.getFullYear();
 
     return this._http.get<PageResponseDTO<LicitacaoDTO>>(
-      baseUrl + '/v1?from=' + iniStr + '&to=' + fimStr + '&page=' + pagina + '&size=' + tamanho,
+      listingsUrl + '/v1?from=' + iniStr + '&to=' + fimStr + '&page=' + pagina + '&size=' + tamanho,
       this.headers());
   }
 
   consultaPorId(id:number) : Observable<LicitacaoDTO> {
-    return this._http.get<LicitacaoDTO>(baseUrl + '/v1/' + id, 
+    return this._http.get<LicitacaoDTO>(listingsUrl + '/v1/' + id, 
     this.headers())
   }
 
   novaLicitacao(licitacao:LicitacaoDTO): Observable<number> {
     const httpOptions = {}
-    return this._http.post<number>(baseUrl + '/v1',
+    return this._http.post<number>(listingsUrl + '/v1',
       {
         'category':licitacao.category,
         'group':licitacao.group,
@@ -61,6 +75,11 @@ export class LicitacoesService {
       },
       this.headers())
       ;
+  }
+
+  consultarOrcamentos(licitacao : number): Observable<OrcamentoDTO[]> {
+    return this._http.get<OrcamentoDTO[]>(proposalsUrl + '/v1?listing=' + licitacao,
+    this.headers());
   }
 
   private headers(): object {

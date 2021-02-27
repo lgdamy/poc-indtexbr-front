@@ -7,6 +7,7 @@ import { LoadingComponent } from '../loading/loading.component';
 import { DateAdapter } from '@angular/material/core';
 import { validate } from 'json-schema';
 import { AlertService } from '../alert.service';
+import { NotificationService } from '../notification/notification.service';
 
 export interface AuthResponseDTO {
   access_token: string,
@@ -28,7 +29,8 @@ export class AuthenticationService {
   constructor(
     public loader: LoadingComponent,
     private _http: HttpClient,
-    private _alert: AlertService
+    private _alert: AlertService,
+    private _notification : NotificationService
   ) {this.buscarToken() }
 
   toggle:boolean = false;
@@ -73,12 +75,14 @@ export class AuthenticationService {
     if (resp == undefined) {
       localStorage.removeItem('token');
       localStorage.removeItem('validade');
+      this._notification.disconnect()
       this.toggle = false;
       return;
     }
     let exp = new Date().setTime(new Date().getTime() + resp.expires_in * 1000);
     localStorage.setItem('token', resp.access_token)
     localStorage.setItem('validade', exp.toString());
+    this._notification.connect();
     this.toggle = true;
   }
 
