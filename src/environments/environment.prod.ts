@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  url_processo_industrial:'https://poc-indtexbr-proc-industrial.herokuapp.com/api',
-  // url_processo_industrial:'http://localhost:8080/api',
-  url_consultorias_assessorias:'https://poc-consultorias-assessorias.herokuapp.com/api',
-  url_normas:'https://poc-normas.herokuapp.com/api'
+  url_processo_industrial:'http://api.tcc2021puc-luizsergio.cf/processoindustrial',
+  url_websocket: 'http://api.tcc2021puc-luizsergio.cf/stomp',
+  url_authentication:'http://api.tcc2021puc-luizsergio.cf/oauth',
+  api_auth_token:'Basic Y2xpZW50SWQ6c2VjcmV0'
 };
