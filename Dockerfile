@@ -8,14 +8,13 @@ COPY . .
 
 ARG PROFILE
 ##ENV PROFILE jenkins
-ENV PROFILE prod
 
 RUN echo "Environment: ${PROFILE}"
-RUN npm run build-${PROFILE}
+##RUN npm run build-${PROFILE}
+RUN npm run build
 
-ARG NODE_ENV
+##ARG NODE_ENV
 ##ENV NODE_ENV jenkins
-ENV NODE_ENV prod
 
 ##CMD npm run start-jenkins
-CMD npm run start-prod
+CMD npm run start
